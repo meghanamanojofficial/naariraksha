@@ -1,4 +1,5 @@
 "use client";
+import { LogOut } from "lucide-react";
 import { useEffect } from "react";
 
 // Leaves instantly and replaces history so "Back" doesn't return. Shortcut: Esc twice.
@@ -9,7 +10,7 @@ export function quickExit() {
   window.location.replace(SAFE_URL);
 }
 
-export default function QuickExit() {
+export default function QuickExit({ compact = false }: { compact?: boolean }) {
   useEffect(() => {
     let last = 0;
     const onKey = (e: KeyboardEvent) => {
@@ -22,8 +23,9 @@ export default function QuickExit() {
   }, []);
   return (
     <button onClick={quickExit} title="Leave instantly (or press Esc twice)"
-      className="rounded-full bg-slate-900 px-4 py-1.5 text-sm font-semibold text-white hover:bg-black">
-      Quick exit ✕
+      className="inline-flex h-10 shrink-0 items-center whitespace-nowrap gap-1.5 rounded-full bg-inverse-surface px-4 text-sm font-semibold text-inverse-on-surface shadow-[0_2px_8px_rgba(38,49,67,0.25)] transition hover:opacity-90 active:scale-95">
+      <LogOut size={16} aria-hidden />
+      <span className={compact ? "sr-only sm:not-sr-only" : ""}>Quick exit</span>
     </button>
   );
 }

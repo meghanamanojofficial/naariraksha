@@ -1,1 +1,160 @@
 @import "tailwindcss";
+
+/* "Sanctuary Glass" design tokens (see frontend.zip → sanctuary_glass/DESIGN.md) */
+@theme {
+  --font-sans: var(--font-dm-sans), var(--font-noto-ml), ui-sans-serif, system-ui, sans-serif;
+
+  --color-primary: #95002a;
+  --color-primary-container: #be123c;
+  --color-on-primary-container: #ffd0d2;
+  --color-primary-fixed: #ffdadb;
+  --color-primary-fixed-dim: #ffb2b7;
+  --color-on-primary-fixed: #40000d;
+  --color-on-primary-fixed-variant: #920029;
+  --color-secondary: #8f4953;
+  --color-secondary-container: #ffa6b1;
+  --color-on-secondary-fixed: #3b0613;
+  --color-tertiary-container: #9e4600;
+
+  --color-surface: #f9f9ff;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f0f3ff;
+  --color-surface-container: #e7eeff;
+  --color-surface-container-high: #dee8ff;
+  --color-on-surface: #111c2d;
+  --color-on-surface-variant: #5b4041;
+  --color-inverse-surface: #263143;
+  --color-inverse-on-surface: #ecf1ff;
+  --color-outline-variant: #e3bdbf;
+
+  --color-canvas: #fff8f9;
+  --color-ink: #1e293b;
+  --color-ink-soft: #475569;
+  --color-ink-muted: #64748b;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--color-canvas);
+  background-image:
+    radial-gradient(40rem 30rem at 0% 0%, rgb(255 228 230 / 0.55), transparent 70%),
+    radial-gradient(36rem 28rem at 100% 10%, rgb(255 228 230 / 0.45), transparent 70%);
+  background-attachment: fixed;
+}
+
+:lang(ml), .ml { line-height: 1.7; }
+
+@layer components {
+  /* Surface level 1: frosted panels & cards */
+  .glass {
+    background: rgb(255 255 255 / 0.85);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgb(255 255 255 / 0.9);
+    box-shadow: inset 0 1px 1px 0 rgb(255 255 255 / 1), 0 12px 32px -8px rgb(190 18 60 / 0.08), 0 4px 12px -4px rgb(30 41 59 / 0.04);
+    border-radius: 1.5rem;
+  }
+  /* Surface level 2: elevated sheets */
+  .glass-strong {
+    background: rgb(255 255 255 / 0.95);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgb(255 255 255 / 0.95);
+    box-shadow: 0 12px 32px -4px rgb(190 18 60 / 0.1), 0 4px 12px -2px rgb(30 41 59 / 0.05);
+    border-radius: 1.5rem;
+  }
+  .tile {
+    background: rgb(240 243 255 / 0.7);
+    border: 1px solid rgb(255 255 255 / 0.9);
+    border-radius: 1rem;
+  }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    min-height: 2.75rem; padding: 0 1.25rem; border-radius: 1rem;
+    background: var(--color-primary-container); color: #fff; font-weight: 600; font-size: 0.875rem;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.35), 0 6px 16px -6px rgb(190 18 60 / 0.5);
+    transition: background-color 150ms, transform 150ms;
+  }
+  .btn-primary:hover { background: #9f1239; }
+  .btn-primary:active { transform: scale(0.98); }
+  .btn-primary:disabled { opacity: 0.5; pointer-events: none; }
+
+  .btn-glass {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    min-height: 2.75rem; padding: 0 1.25rem; border-radius: 1rem;
+    background: rgb(255 255 255 / 0.75); color: var(--color-primary-container);
+    border: 1px solid #fda4af; font-weight: 600; font-size: 0.875rem;
+    transition: background-color 150ms;
+  }
+  .btn-glass:hover { background: #fff1f2; }
+  .btn-glass:disabled { opacity: 0.5; pointer-events: none; }
+
+  .btn-sos {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    min-height: 2.75rem; padding: 0 1.25rem; border-radius: 9999px;
+    background: #dc2626; color: #fff; font-weight: 700; font-size: 0.875rem;
+    box-shadow: 0 0 0 4px rgb(220 38 38 / 0.2);
+  }
+  .btn-sos:hover { background: #b91c1c; }
+
+  .field {
+    width: 100%; min-height: 2.75rem; padding: 0.5rem 0.875rem; border-radius: 1rem;
+    background: rgb(240 243 255 / 0.8); border: 1px solid rgb(253 164 175 / 0.45);
+    color: var(--color-ink); font-size: 0.875rem; outline: none;
+    transition: border-color 150ms, box-shadow 150ms;
+  }
+  .field::placeholder { color: var(--color-ink-muted); }
+  .field:focus { border-color: var(--color-primary-container); box-shadow: 0 0 0 3px rgb(190 18 60 / 0.15); background: #fff; }
+
+  .label { display: block; margin-bottom: 0.375rem; font-size: 0.75rem; font-weight: 600; color: var(--color-ink-soft); }
+
+  .chip {
+    display: inline-flex; align-items: center; gap: 0.25rem; border-radius: 9999px;
+    padding: 0.125rem 0.625rem; font-size: 0.6875rem; font-weight: 600;
+    background: #fff1f2; border: 1px solid #ffe4e6; color: var(--color-primary-container);
+  }
+  .chip-warn { background: #fef3c7; border-color: #fde68a; color: #b45309; }
+  .chip-info { background: var(--color-surface-container); border-color: var(--color-surface-container-high); color: #334155; }
+  .chip-ok { background: #ecfdf5; border-color: #d1fae5; color: #047857; }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 0.375rem;
+    font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--color-primary-container);
+  }
+
+  .icon-badge {
+    display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+    width: 2.5rem; height: 2.5rem; border-radius: 0.875rem;
+    background: #fff1f2; color: var(--color-primary-container);
+  }
+
+  input[type="checkbox"].check {
+    appearance: none; width: 1.125rem; height: 1.125rem; border-radius: 0.375rem;
+    border: 2px solid #fda4af; background: #fff; display: inline-grid; place-content: center; flex-shrink: 0;
+    cursor: pointer;
+  }
+  input[type="checkbox"].check:checked { background: var(--color-primary-container); border-color: var(--color-primary-container); }
+  input[type="checkbox"].check:checked::after {
+    content: ""; width: 0.55rem; height: 0.3rem; border: 2px solid #fff; border-top: 0; border-right: 0;
+    transform: rotate(-45deg) translate(1px, -1px);
+  }
+  input[type="checkbox"].check:focus-visible { box-shadow: 0 0 0 3px rgb(190 18 60 / 0.2); outline: none; }
+}
+
+@keyframes float-gentle { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes aura-pulse { 0%, 100% { opacity: 0.35; transform: scale(1); } 50% { opacity: 0.6; transform: scale(1.1); } }
+.animate-float { animation: float-gentle 4s ease-in-out infinite; }
+.animate-aura { animation: aura-pulse 6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .animate-float, .animate-aura { animation: none; } }
+
+/* Print only the complaint letter */
+.print-only { display: none; }
+@media print {
+  body { background: #fff !important; }
+  body * { visibility: hidden; }
+  .print-only, .print-only * { visibility: visible; }
+  .print-only { display: block; position: absolute; inset: 0; padding: 2cm; font-family: Georgia, serif; font-size: 12pt; white-space: pre-wrap; color: #000; }
+}
