@@ -10,6 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware  # noqa: E402
 
 from .clients import router as clients_router  # noqa: E402
 from .routers import router  # noqa: E402
+from .speech import router as speech_router  # noqa: E402
 from .seed import seed  # noqa: E402
 
 
@@ -30,6 +31,7 @@ app.add_middleware(
 
 app.include_router(router)
 app.include_router(clients_router)
+app.include_router(speech_router)
 
 
 @app.get("/")

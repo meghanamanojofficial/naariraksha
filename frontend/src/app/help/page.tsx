@@ -1,6 +1,8 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import SpeakButton from "@/components/SpeakButton";
+import VoiceInput from "@/components/VoiceInput";
 import { AuthorityItem, Bullets, Card, LawItem, LegalAidItem } from "@/components/ui";
 import { chat, getMeta, type ChatResult, type Intake, type Msg } from "@/lib/api";
 
@@ -12,6 +14,7 @@ export default function HelpPage() {
   const [language, setLanguage] = useState("English");
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
+  const [interim, setInterim] = useState("");
   const [result, setResult] = useState<ChatResult | null>(null);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState("");
@@ -90,15 +93,20 @@ export default function HelpPage() {
           {messages.map((m, i) => (
             <div key={i} className={`max-w-[85%] whitespace-pre-wrap rounded-2xl px-4 py-2 text-sm ${m.role === "user" ? "ml-auto bg-rose-700 text-white" : "bg-rose-50"}`}>
               {m.content}
+              {m.role === "assistant" && <div><SpeakButton text={m.content} language={language} /></div>}
             </div>
           ))}
           {busy && <p className="text-sm text-slate-500">Thinking…</p>}
           <div ref={endRef} />
         </div>
         <div className="mt-3 flex gap-2">
-          <textarea value={input} onChange={(e) => setInput(e.target.value)} rows={2}
+          <VoiceInput language={language} disabled={busy}
+            onText={(t) => setInput((p) => (p ? p.trimEnd() + " " : "") + t)}
+            onInterim={setInterim} />
+          <textarea value={interim ? (input ? input.trimEnd() + " " : "") + interim : input}
+            onChange={(e) => { setInterim(""); setInput(e.target.value); }} rows={2}
             onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } }}
-            placeholder="e.g. My husband hits me and his family keeps asking for more dowry…"
+            placeholder={language === "Malayalam" ? "എന്താണ് സംഭവിച്ചതെന്ന് എഴുതുക അല്ലെങ്കിൽ 🎤 അമർത്തി പറയുക…" : "Type, or tap 🎤 and speak. e.g. My husband hits me and his family keeps asking for more dowry…"}
             className="flex-1 rounded-xl border border-rose-200 p-3 text-sm outline-none focus:ring-2 focus:ring-rose-300" />
           <button onClick={send} disabled={busy || input.trim().length < 3}
             className="rounded-xl bg-rose-700 px-5 text-sm font-semibold text-white disabled:opacity-50">Send</button>
