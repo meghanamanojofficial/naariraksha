@@ -1,0 +1,110 @@
+[
+  {
+    "slug": "rape", "name": "Rape and sexual assault", "category": "Sexual violence",
+    "summary": "Any sexual act without free consent. You can report at any police station, get free medical treatment at any hospital, and your identity must be kept confidential.",
+    "keywords": ["rape", "raped", "forced sex", "sexual assault", "forced me", "molested"],
+    "law_codes": ["BNS-64", "BNS-70", "BNSS-173", "BNSS-183", "BNSS-184", "BNSS-397", "BNSS-396", "LSA-12"],
+    "evidence": ["Seek medical care as soon as you can; any hospital must treat you free", "If possible, keep the clothes you wore in a paper bag (not plastic)", "Write down what you remember: date, time, place, the person, anyone you told", "Messages, calls or photos related to the incident", "Names of anyone who saw you before or after"],
+    "documents": ["Any ID proof (Aadhaar, voter ID, college ID)", "Medical / MLC report from the hospital", "Copy of the FIR (you are entitled to a free copy)"],
+    "authority_types": ["emergency", "police", "women_helpline", "one_stop_centre", "legal_aid"]
+  },
+  {
+    "slug": "sexual-harassment", "name": "Sexual harassment and molestation", "category": "Sexual violence",
+    "summary": "Unwelcome touching, groping, sexual remarks, gestures or showing sexual content. In public places, on transport or anywhere else.",
+    "keywords": ["touched", "groped", "grope", "bus", "comment", "eve teasing", "whistle", "harass", "flash", "molest"],
+    "law_codes": ["BNS-74", "BNS-75", "BNS-76", "BNS-79", "BNSS-173", "LSA-12"],
+    "evidence": ["Date, time, exact place and route (bus number, train, shop)", "Description of the person", "Names or numbers of witnesses", "CCTV locations nearby (ask police to secure footage quickly)", "Photos or video if safely taken"],
+    "documents": ["ID proof", "Ticket or travel proof if on transport"],
+    "authority_types": ["emergency", "police", "pink_police", "women_helpline"]
+  },
+  {
+    "slug": "stalking", "name": "Stalking", "category": "Harassment",
+    "summary": "Someone repeatedly follows you, contacts you after you said no, or monitors your phone, email or social media.",
+    "keywords": ["follow", "following", "stalk", "keeps calling", "keeps messaging", "waiting outside", "tracking", "track my"],
+    "law_codes": ["BNS-78", "BNS-351", "BNSS-173", "LSA-12"],
+    "evidence": ["A dated log of every incident", "Screenshots of calls and messages showing number/profile and time", "Proof you told them to stop", "Photos of the person or vehicle if safe", "Witnesses"],
+    "documents": ["ID proof", "Call records (you can request from your telecom provider)"],
+    "authority_types": ["emergency", "police", "women_helpline", "cyber"]
+  },
+  {
+    "slug": "cyber-harassment", "name": "Online harassment and cyberstalking", "category": "Cybercrime",
+    "summary": "Abusive messages, threats, fake profiles, hacking or monitoring your accounts online.",
+    "keywords": ["instagram", "facebook", "whatsapp", "online", "fake profile", "fake account", "hacked", "dm", "messages me", "trolling", "impersonat"],
+    "law_codes": ["BNS-78", "BNS-79", "BNS-351", "IT-66C", "IT-66D", "BSA-63", "BNSS-173"],
+    "evidence": ["Screenshots showing the profile URL, username, message and date-time", "Profile links (copy the URL)", "Do not delete chats; export them if possible", "Report the profile on the platform and screenshot the report", "Keep the device; electronic evidence needs a BSA Section 63 certificate"],
+    "documents": ["ID proof", "List of URLs and usernames", "BSA Section 63 certificate for electronic evidence (police can guide)"],
+    "authority_types": ["cyber", "police", "women_helpline"]
+  },
+  {
+    "slug": "sextortion", "name": "Blackmail, sextortion and leaked or morphed images", "category": "Cybercrime",
+    "summary": "Someone threatens to share private or morphed images unless you pay or do something, or has already shared them.",
+    "keywords": ["blackmail", "leak", "nude", "private photo", "private video", "morph", "deepfake", "sextort", "threaten to post", "pay or", "edited photo"],
+    "law_codes": ["BNS-308", "BNS-351", "BNS-77", "IT-66E", "IT-67", "IT-RULES-3", "BSA-63", "BNSS-173"],
+    "evidence": ["Do NOT pay; it usually leads to more demands", "Screenshot the threats with the profile/number and date-time", "Save links where images were posted", "Do not delete the conversation", "Report the content to the platform for takedown and to StopNCII.org"],
+    "documents": ["ID proof", "List of URLs", "Payment proof if you already paid"],
+    "authority_types": ["cyber", "police", "women_helpline"]
+  },
+  {
+    "slug": "voyeurism", "name": "Hidden cameras and voyeurism", "category": "Privacy",
+    "summary": "Being secretly watched, photographed or filmed in a private situation, or such images being shared.",
+    "keywords": ["hidden camera", "filmed", "recorded me", "secretly", "changing room", "bathroom", "spy cam"],
+    "law_codes": ["BNS-77", "IT-66E", "IT-67", "BSA-63", "BNSS-173"],
+    "evidence": ["Note the location and time", "Do not touch a hidden device; photograph it and inform police", "Links if images were shared"],
+    "documents": ["ID proof"],
+    "authority_types": ["police", "cyber", "women_helpline"]
+  },
+  {
+    "slug": "domestic-violence", "name": "Domestic violence", "category": "Abuse at home",
+    "summary": "Physical, sexual, verbal, emotional or economic abuse by a husband, partner or family member you live or lived with.",
+    "keywords": ["husband", "in-law", "in law", "beats me", "hit me", "slapped", "domestic", "partner", "abuse at home", "locked me", "thrown out"],
+    "law_codes": ["PWDVA", "BNS-85", "BNS-115", "BNS-351", "BNSS-173", "LSA-12"],
+    "evidence": ["Photos of injuries and damaged property", "Medical records of any treatment", "A dated diary of incidents", "Messages, voice notes or call recordings of threats", "Names of neighbours or relatives who know"],
+    "documents": ["ID proof", "Marriage certificate or proof of relationship", "Proof of shared household (ration card, rent agreement, bills)", "Bank statements if money is withheld"],
+    "authority_types": ["emergency", "police", "protection_officer", "one_stop_centre", "women_helpline", "legal_aid"]
+  },
+  {
+    "slug": "dowry", "name": "Dowry harassment", "category": "Abuse at home",
+    "summary": "Demands for money, gold or property from you or your family in connection with marriage, and harassment for not meeting them.",
+    "keywords": ["dowry", "gold", "demand money", "more money", "car", "stridhan"],
+    "law_codes": ["BNS-85", "DPA", "PWDVA", "BNS-80", "BNSS-173", "LSA-12"],
+    "evidence": ["List of gifts, gold and money given, with dates", "Wedding photos showing gifts", "Messages or recordings of demands", "Bank transfers"],
+    "documents": ["ID proof", "Marriage certificate", "Bills or receipts for jewellery and gifts (stridhan list)"],
+    "authority_types": ["police", "protection_officer", "women_helpline", "legal_aid"]
+  },
+  {
+    "slug": "workplace-harassment", "name": "Sexual harassment at work or college", "category": "Workplace",
+    "summary": "Sexual harassment by a boss, colleague, client, teacher or anyone at your workplace or institution.",
+    "keywords": ["boss", "manager", "colleague", "office", "workplace", "internship", "professor", "teacher", "hr", "company"],
+    "law_codes": ["POSH", "BNS-75", "BNSS-173", "LSA-12"],
+    "evidence": ["Emails, chats and messages", "Dates and places of each incident", "Names of colleagues who witnessed or you confided in", "Any earlier complaints you made"],
+    "documents": ["Employee or student ID", "Appointment letter or proof of employment / enrolment", "Copy of your organisation's POSH policy if available"],
+    "authority_types": ["posh_committee", "police", "women_helpline"]
+  },
+  {
+    "slug": "acid-attack", "name": "Acid attack", "category": "Violence",
+    "summary": "Throwing or attempting to throw acid. Every hospital must give free immediate treatment.",
+    "keywords": ["acid"],
+    "law_codes": ["BNS-124", "BNSS-397", "BNSS-396", "BNSS-173", "LSA-12"],
+    "evidence": ["Get to a hospital immediately; pour plenty of clean water on the area", "Names of witnesses", "Any earlier threats from the person"],
+    "documents": ["ID proof", "Medical records"],
+    "authority_types": ["emergency", "police", "legal_aid"]
+  },
+  {
+    "slug": "child-sexual-abuse", "name": "Sexual abuse of a girl under 18", "category": "Child protection",
+    "summary": "Any sexual act, touch or harassment involving someone under 18 is an offence under POCSO, regardless of consent.",
+    "keywords": ["minor", "child", "my daughter", "under 18", "school", "16 year", "15 year", "17 year", "14 year"],
+    "law_codes": ["POCSO-4", "POCSO-8", "POCSO-19", "BNSS-173", "BNSS-397", "LSA-12"],
+    "evidence": ["Take the child to a doctor; treatment is free", "Write down what the child said, in her words, without pressing for details", "Do not confront the accused yourself"],
+    "documents": ["Child's age proof (birth certificate / school record)", "ID of the guardian"],
+    "authority_types": ["emergency", "child_helpline", "police", "legal_aid"]
+  },
+  {
+    "slug": "threats-intimidation", "name": "Threats and intimidation", "category": "Harassment",
+    "summary": "Threats to hurt you, your family, your reputation or property.",
+    "keywords": ["threat", "kill", "hurt me", "acid", "ruin", "intimidat"],
+    "law_codes": ["BNS-351", "BNS-356", "BNSS-173"],
+    "evidence": ["Screenshots or recordings of the threats", "Dates and witnesses"],
+    "documents": ["ID proof"],
+    "authority_types": ["emergency", "police", "women_helpline"]
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {"name": "Emergency Response (Police, Fire, Ambulance)", "level": "national", "district": null, "type": "emergency", "phone": "112", "url": null, "notes": "Immediate danger. Works across India.", "verified": true},
+  {"name": "Women Helpline", "level": "national", "district": null, "type": "women_helpline", "phone": "181", "url": null, "notes": "24x7. Run as Mitra 181 in Kerala.", "verified": true},
+  {"name": "National Cyber Crime Helpline", "level": "national", "district": null, "type": "cyber", "phone": "1930", "url": "https://cybercrime.gov.in", "notes": "Report online harassment, morphed images, fake profiles, fraud. Women-related complaints can be filed anonymously on the portal.", "verified": true},
+  {"name": "Childline", "level": "national", "district": null, "type": "child_helpline", "phone": "1098", "url": null, "notes": "For anyone under 18.", "verified": true},
+  {"name": "NALSA Legal Aid Helpline", "level": "national", "district": null, "type": "legal_aid", "phone": "15100", "url": "https://nalsa.gov.in", "notes": "Free legal advice and a free lawyer.", "verified": true},
+  {"name": "National Commission for Women (WhatsApp)", "level": "national", "district": null, "type": "commission", "phone": "7827170170", "url": "https://ncw.gov.in", "notes": "Complaints about violence and harassment.", "verified": true},
+  {"name": "StopNCII.org", "level": "national", "district": null, "type": "cyber", "phone": null, "url": "https://stopncii.org", "notes": "Stops intimate images spreading on major platforms; the image never leaves your device.", "verified": true},
+
+  {"name": "Kerala Police Pink Patrol", "level": "state", "district": null, "type": "pink_police", "phone": "1515", "url": null, "notes": "Women's safety patrol in Kerala.", "verified": true},
+  {"name": "Kerala Women's Commission", "level": "state", "district": null, "type": "commission", "phone": null, "url": null, "notes": "VERIFY contact before demo.", "verified": false},
+  {"name": "Kerala State Legal Services Authority (KELSA)", "level": "state", "district": null, "type": "legal_aid", "phone": null, "url": null, "notes": "Free legal aid across Kerala. VERIFY contact before demo.", "verified": false},
+  {"name": "Kerala Police 'Aparajitha' (online harassment of women)", "level": "state", "district": null, "type": "cyber", "phone": null, "url": null, "notes": "VERIFY contact before demo.", "verified": false},
+
+  {"name": "Ernakulam District Legal Services Authority", "level": "district", "district": "Ernakulam", "type": "legal_aid", "phone": null, "url": null, "notes": "VERIFY contact.", "verified": false},
+  {"name": "Sakhi One Stop Centre, Ernakulam", "level": "district", "district": "Ernakulam", "type": "one_stop_centre", "phone": null, "url": null, "notes": "Medical, legal, police and counselling help in one place. VERIFY contact.", "verified": false},
+  {"name": "Protection Officer (DV Act), Ernakulam", "level": "district", "district": "Ernakulam", "type": "protection_officer", "phone": null, "url": null, "notes": "Helps file a Domestic Incident Report and approach the Magistrate. VERIFY contact.", "verified": false},
+  {"name": "District Police Women Cell, Ernakulam", "level": "district", "district": "Ernakulam", "type": "police", "phone": null, "url": null, "notes": "VERIFY contact.", "verified": false},
+  {"name": "Local Committee (POSH), Ernakulam", "level": "district", "district": "Ernakulam", "type": "posh_committee", "phone": null, "url": null, "notes": "For workplaces without an Internal Committee. VERIFY contact.", "verified": false}
+]

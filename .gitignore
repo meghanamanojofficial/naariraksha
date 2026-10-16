@@ -17,3 +17,6 @@ next-env.d.ts
 Thumbs.db
 .vscode/
 .idea/
+
+# local database
+*.db

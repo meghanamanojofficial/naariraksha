@@ -1,0 +1,7 @@
+[
+  {"name": "NALSA Legal Aid", "kind": "legal_services_authority", "district": null, "specialisations": ["all"], "languages": ["English", "Hindi"], "phone": "15100", "email": null, "url": "https://nalsa.gov.in", "free": true, "verified": true, "demo": false},
+  {"name": "Kerala State Legal Services Authority (KELSA)", "kind": "legal_services_authority", "district": null, "specialisations": ["all"], "languages": ["Malayalam", "English"], "phone": null, "email": null, "url": null, "free": true, "verified": false, "demo": false},
+  {"name": "Ernakulam District Legal Services Authority", "kind": "legal_services_authority", "district": "Ernakulam", "specialisations": ["all"], "languages": ["Malayalam", "English"], "phone": null, "email": null, "url": null, "free": true, "verified": false, "demo": false},
+  {"name": "Adv. Demo Lawyer A (sample listing)", "kind": "advocate", "district": "Ernakulam", "specialisations": ["domestic-violence", "dowry"], "languages": ["Malayalam", "English"], "phone": null, "email": null, "url": null, "free": true, "verified": false, "demo": true},
+  {"name": "Adv. Demo Lawyer B (sample listing)", "kind": "advocate", "district": "Thiruvananthapuram", "specialisations": ["cyber-harassment", "sextortion"], "languages": ["Malayalam", "English", "Tamil"], "phone": null, "email": null, "url": null, "free": false, "verified": false, "demo": true}
+]
