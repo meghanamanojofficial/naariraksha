@@ -14,7 +14,7 @@ from .seed import seed  # noqa: E402
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
-    seed()  # creates tables and loads seed_data/*.json if the DB is empty
+    seed(reset=True)  # reloads seed_data/*.json on every start, so edits show up after a restart
     yield
 
 
@@ -37,4 +37,11 @@ def root():
 
 @app.get("/health")
 def health():
-    return {"ok": True, "llm": "gemini" if os.getenv("GEMINI_API_KEY") else "offline"}
+    from .services import llm
+
+    return {
+        "ok": True,
+        "llm": "gemini" if os.getenv("GEMINI_API_KEY") else "offline (GEMINI_API_KEY not set in backend/.env)",
+        "model": llm.MODEL,
+        "last_llm_error": llm.LAST_ERROR,
+    }

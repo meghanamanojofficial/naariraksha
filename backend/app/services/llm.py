@@ -9,7 +9,8 @@ import json
 import os
 import re
 
-MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+MODEL = os.getenv("GEMINI_MODEL") or "gemini-2.5-flash"
+LAST_ERROR: str | None = None  # shown on /health to debug the AI connection
 
 EMERGENCY_RE = re.compile(r"\b(kill|right now|outside my (door|house|room)|attacking|bleeding|help me now|suicid|end my life)\b", re.I)
 
@@ -53,6 +54,7 @@ def _client():
 
 
 def _call(system: str, user: str, json_mode: bool = True) -> str | None:
+    global LAST_ERROR
     client = _client()
     if client is None:
         return None
@@ -68,9 +70,11 @@ def _call(system: str, user: str, json_mode: bool = True) -> str | None:
                 response_mime_type="application/json" if json_mode else "text/plain",
             ),
         )
+        LAST_ERROR = None
         return resp.text
-    except Exception as e:  # quota, network, etc.
-        print(f"[llm] fallback: {e}")
+    except Exception as e:  # bad key, quota, network, wrong model name...
+        LAST_ERROR = f"{type(e).__name__}: {e}"[:300]
+        print(f"[llm] fallback: {LAST_ERROR}")
         return None
 
 
