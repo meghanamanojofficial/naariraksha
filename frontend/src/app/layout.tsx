@@ -14,6 +14,8 @@ const NAV = [
   { href: "/complaint", label: "Draft complaint" },
   { href: "/directory", label: "Helplines" },
   { href: "/legal-aid", label: "Legal aid" },
+  { href: "/products", label: "Products" },
+  { href: "/clients", label: "Clients" },
 ];
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

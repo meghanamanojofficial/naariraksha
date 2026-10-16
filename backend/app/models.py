@@ -78,3 +78,23 @@ class CallbackRequest(SQLModel, table=True):
     legal_aid_id: int | None = None
     consent: bool
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
+class Organization(SQLModel, table=True):
+    """An institutional client. Never linked to any user's chat or case."""
+
+    id: int | None = Field(default=None, primary_key=True)
+    product: str = Field(index=True)  # campus | partner | workplace
+    org_name: str
+    contact_name: str
+    designation: str | None = None
+    email: str = Field(index=True, unique=True)
+    phone: str
+    district: str | None = None
+    size: str | None = None
+    has_internal_committee: bool | None = None
+    message: str | None = None
+    status: str = "pilot_requested"  # pilot_requested | active | inactive
+    password_hash: str
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    last_login: datetime | None = None
