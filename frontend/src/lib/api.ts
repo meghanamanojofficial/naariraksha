@@ -3,7 +3,7 @@ export const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 export type Law = {
   code: string; act: string; section: string; old_act: string | null; old_section: string | null;
   title: string; plain_en: string; cognizable: boolean | null; bailable: boolean | null;
-  applies: "new" | "old"; citation: string; also_known_as: string | null;
+  applies: "new" | "old"; citation: string; also_known_as: string | null; key?: boolean;
 };
 export type Authority = {
   id: number; name: string; level: "national" | "state" | "district"; district: string | null;
@@ -19,7 +19,9 @@ export type CrimeDetail = CrimeSummary & { evidence: string[]; documents: string
 export type Msg = { role: "user" | "assistant"; content: string };
 export type Intake = { incident_date?: string; district?: string; is_minor: boolean; in_danger: boolean; relation_to_accused?: string };
 export type ChatResult = {
-  reply: string; next_steps: string[]; is_emergency: boolean; offline: boolean;
+  reply: string; next_steps: string[]; follow_up_questions: string[]; is_emergency: boolean;
+  offline: boolean; offline_reason: string | null; recommended_authority: string | null;
+  facts: Record<string, string | boolean | null> | null;
   crimes: { slug: string; name: string; category: string }[];
   laws: Law[]; evidence: string[]; documents: string[]; authorities: Authority[]; legal_aid: LegalAid[];
 };

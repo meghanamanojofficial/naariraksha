@@ -30,15 +30,14 @@ def crimes_by_slugs(s: Session, slugs: list[str]) -> list[Crime]:
 
 
 def laws_for_crimes(s: Session, crimes: list[Crime], incident_date: date | None) -> list[dict]:
-    ids = [c.id for c in crimes]
-    if not ids:
-        return []
-    rows = s.exec(select(Law).join(CrimeLaw).where(CrimeLaw.crime_id.in_(ids))).all()
+    """Laws for each crime in order (top crime first, each crime's laws in crimes.json order), de-duplicated."""
     seen, out = set(), []
-    for law in rows:
-        if law.code not in seen:
-            seen.add(law.code)
-            out.append(law_view(law, incident_date))
+    for c in crimes:
+        rows = s.exec(select(Law).join(CrimeLaw).where(CrimeLaw.crime_id == c.id).order_by(CrimeLaw.position)).all()
+        for law in rows:
+            if law.code not in seen:
+                seen.add(law.code)
+                out.append(law_view(law, incident_date))
     return out
 
 

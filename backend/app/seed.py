@@ -7,7 +7,7 @@ import json
 import sys
 from pathlib import Path
 
-from sqlmodel import Session, delete, select
+from sqlmodel import Session, select
 
 from .db import engine, init_db
 from .models import Authority, Crime, CrimeLaw, LegalAid, Law
@@ -21,12 +21,17 @@ def _load(name: str):
 
 def seed(reset: bool = False) -> None:
     init_db()
-    with Session(engine) as s:
-        if not reset and s.exec(select(Crime)).first():
-            return
+    if not reset:
+        with Session(engine) as s:
+            if s.exec(select(Crime)).first():
+                return
+    # Drop & recreate content tables so new columns in seed data always apply.
+    # CallbackRequest is never touched.
+    if reset:
         for model in (CrimeLaw, Crime, Law, Authority, LegalAid):
-            s.exec(delete(model))
-        s.commit()
+            model.__table__.drop(engine, checkfirst=True)
+        init_db()
+    with Session(engine) as s:
 
         laws = {}
         for row in _load("laws.json"):
@@ -40,10 +45,10 @@ def seed(reset: bool = False) -> None:
             crime = Crime(**row)
             s.add(crime)
             s.flush()
-            for code in codes:
+            for pos, code in enumerate(codes):
                 if code not in laws:
                     raise ValueError(f"crimes.json: '{row['slug']}' references unknown law code '{code}'")
-                s.add(CrimeLaw(crime_id=crime.id, law_id=laws[code].id))
+                s.add(CrimeLaw(crime_id=crime.id, law_id=laws[code].id, position=pos))
 
         for row in _load("authorities.json"):
             s.add(Authority(**row))

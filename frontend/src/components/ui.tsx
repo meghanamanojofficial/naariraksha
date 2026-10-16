@@ -17,7 +17,10 @@ export function Bullets({ items }: { items: string[] }) {
 export function LawItem({ law }: { law: Law }) {
   return (
     <div className="border-l-4 border-rose-300 pl-3 text-sm">
-      <p className="font-medium">{law.title}</p>
+      <p className="font-medium">
+        {law.title}
+        {law.key && <span className="ml-2 rounded bg-rose-700 px-1.5 py-0.5 text-[10px] font-semibold uppercase text-white">Most relevant</span>}
+      </p>
       <p className="text-rose-800">{law.citation}</p>
       {law.also_known_as && <p className="text-xs text-slate-500">{law.also_known_as}</p>}
       <p className="mt-1 text-slate-700">{law.plain_en}</p>

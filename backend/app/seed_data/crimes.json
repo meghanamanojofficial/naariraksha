@@ -47,6 +47,17 @@
       "women_helpline",
       "one_stop_centre",
       "legal_aid"
+    ],
+    "first_steps": [
+      "If you are hurt or in danger, call 112 or go to the nearest hospital; every hospital must treat you free (BNSS 397)",
+      "If possible, don't bathe or wash clothes before the medical exam; keep the clothes in a paper bag",
+      "You can give your statement to a woman police officer, and it can be recorded at your home",
+      "Call 181 or visit a Sakhi One Stop Centre for medical, legal and counselling help in one place"
+    ],
+    "questions": [
+      "Are you safe right now, and do you need medical care?",
+      "When did this happen (today, this week, or earlier)?",
+      "Do you know the person, or was it a stranger?"
     ]
   },
   {
@@ -96,6 +107,17 @@
       "police",
       "pink_police",
       "women_helpline"
+    ],
+    "first_steps": [
+      "Write down the date, time, exact place and route (bus or train number) while you remember",
+      "Ask the police to secure CCTV footage quickly; it is often deleted within days",
+      "Note any witnesses' names or numbers",
+      "You can file at any police station; in public places you can also call Pink Patrol 1515"
+    ],
+    "questions": [
+      "Where did this happen (bus, street, shop, college, online)?",
+      "Do you know the person or can you describe them?",
+      "Were there witnesses or CCTV nearby?"
     ]
   },
   {
@@ -136,6 +158,17 @@
       "police",
       "women_helpline",
       "cyber"
+    ],
+    "first_steps": [
+      "Keep a dated log of every time he follows or contacts you",
+      "Screenshot calls and messages showing the number/profile and time; don't delete anything",
+      "Tell him clearly once, in writing, to stop, and keep that message as proof",
+      "Share your live location with a trusted person when you travel"
+    ],
+    "questions": [
+      "Is he following you in person, online, or both?",
+      "How long has this been going on?",
+      "Have you told him to stop, and has he threatened you?"
     ]
   },
   {
@@ -181,6 +214,17 @@
       "cyber",
       "police",
       "women_helpline"
+    ],
+    "first_steps": [
+      "Screenshot everything with the profile URL, username and date-time visible",
+      "Report the profile on the platform and screenshot your report",
+      "File a complaint at cybercrime.gov.in or call 1930",
+      "Turn on two-factor authentication and change your passwords if you think you were hacked"
+    ],
+    "questions": [
+      "Which platform is it on (Instagram, WhatsApp, Facebook, other)?",
+      "Is it a fake profile in your name, messages to you, or posts about you?",
+      "Do you know who is behind it?"
     ]
   },
   {
@@ -227,6 +271,17 @@
       "cyber",
       "police",
       "women_helpline"
+    ],
+    "first_steps": [
+      "Don't pay or send anything more; paying almost always leads to more demands",
+      "Screenshot the threats with the profile/number and date-time, and don't delete the chat",
+      "Report at cybercrime.gov.in or call 1930; women's complaints can be filed anonymously",
+      "Use StopNCII.org to block the images on major platforms, and ask the platform for removal (they must act within 24 hours)"
+    ],
+    "questions": [
+      "Has the image already been posted, or is he only threatening?",
+      "Is he demanding money, more photos, or something else?",
+      "Do you know him, or did you meet him online?"
     ]
   },
   {
@@ -262,6 +317,15 @@
       "police",
       "cyber",
       "women_helpline"
+    ],
+    "first_steps": [
+      "Don't touch a suspected hidden camera; photograph it and inform the police",
+      "Note the exact location and time",
+      "If images were shared, save the links and report them to the platform"
+    ],
+    "questions": [
+      "Where was the camera or recording (hostel, changing room, home)?",
+      "Have the images been shared anywhere?"
     ]
   },
   {
@@ -313,6 +377,17 @@
       "one_stop_centre",
       "women_helpline",
       "legal_aid"
+    ],
+    "first_steps": [
+      "If you are hurt, get medical treatment and keep the records",
+      "Photograph injuries and damage, and keep a dated diary of incidents",
+      "Contact the Protection Officer or a Sakhi One Stop Centre; they can help you get a protection order and the right to stay in your home",
+      "You can do both: a civil case under the DV Act and a police complaint under BNS 85"
+    ],
+    "questions": [
+      "Are you safe at home right now, and do you have somewhere safe to go?",
+      "Who is hurting you (husband, in-laws, other family)?",
+      "Do you want to stay in the home, leave, or are you unsure?"
     ]
   },
   {
@@ -352,6 +427,16 @@
       "protection_officer",
       "women_helpline",
       "legal_aid"
+    ],
+    "first_steps": [
+      "Write a list of all gifts, gold and money given, with dates",
+      "Save messages or recordings where dowry was demanded",
+      "Keep wedding photos and bills for jewellery (your stridhan belongs to you)",
+      "Approach the police (BNS 85) and/or the Protection Officer (DV Act)"
+    ],
+    "questions": [
+      "What exactly are they demanding, and since when?",
+      "Have they hurt you or threatened you over it?"
     ]
   },
   {
@@ -392,6 +477,17 @@
       "posh_committee",
       "police",
       "women_helpline"
+    ],
+    "first_steps": [
+      "Write down each incident with date, place and what was said or done",
+      "Save emails and chats; forward copies to your personal email",
+      "File a written complaint with your Internal Committee, generally within 3 months",
+      "If there is no Internal Committee, go to the district Local Committee; you can also file a police complaint"
+    ],
+    "questions": [
+      "Is it at a workplace or a college?",
+      "Is the person your boss, a colleague, a teacher or a client?",
+      "Does your organisation have an Internal Committee (ICC)?"
     ]
   },
   {
@@ -422,6 +518,15 @@
       "emergency",
       "police",
       "legal_aid"
+    ],
+    "first_steps": [
+      "Rinse the area with plenty of clean water for at least 20 minutes and go to a hospital immediately",
+      "Every hospital must give free treatment (BNSS 397)",
+      "You can claim compensation through the Legal Services Authority (BNSS 396)"
+    ],
+    "questions": [
+      "Have you received medical treatment?",
+      "Did the person threaten you before?"
     ]
   },
   {
@@ -462,6 +567,16 @@
       "child_helpline",
       "police",
       "legal_aid"
+    ],
+    "first_steps": [
+      "Make sure the child is safe from the person",
+      "Call 1098 (Childline) or the police; reporting is mandatory under POCSO",
+      "Take the child to a doctor; treatment is free",
+      "Don't question the child repeatedly; write down what she said in her own words"
+    ],
+    "questions": [
+      "How old is the child, and is she safe now?",
+      "Is the person a family member, someone at school, or a stranger?"
     ]
   },
   {
@@ -493,6 +608,15 @@
       "emergency",
       "police",
       "women_helpline"
+    ],
+    "first_steps": [
+      "Save the threats (screenshots, recordings) with dates",
+      "If you feel in immediate danger, call 112",
+      "File a complaint at the police station; tell them exactly what was threatened"
+    ],
+    "questions": [
+      "What exactly did they threaten to do?",
+      "How do you know this person?"
     ]
   }
 ]

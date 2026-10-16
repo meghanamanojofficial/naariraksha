@@ -10,7 +10,7 @@ from pydantic import BaseModel, Field
 from sqlmodel import Session, select
 
 from .db import get_session
-from .models import Authority, CallbackRequest, Crime, LegalAid
+from .models import Authority, CallbackRequest, Crime, LegalAid, Law
 from .services import legal, llm
 
 router = APIRouter(prefix="/api")
@@ -89,45 +89,73 @@ class ChatIn(BaseModel):
 @router.post("/chat")
 def chat(body: ChatIn, s: Session = Depends(get_session)):
     msgs = [m.model_dump() for m in body.messages]
+    intake = body.intake.model_dump(mode="json")
     all_crimes = s.exec(select(Crime)).all()
+    library_laws = [legal.law_view(l, body.intake.incident_date) for l in s.exec(select(Law)).all()]
+    library_auth = legal.authorities_for(s, list(TYPE_ORDER), body.intake.district)
 
-    cls = llm.classify(msgs, all_crimes)
-    slugs = cls["crime_slugs"]
+    ai = llm.analyze(msgs, intake, body.language, all_crimes, library_laws, library_auth)
+    valid_slugs = {c.slug for c in all_crimes}
+    valid_codes = {l["code"] for l in library_laws}
+    if ai:
+        slugs = [x for x in ai.get("crime_slugs", []) if x in valid_slugs][:3]
+        key_codes = [x for x in ai.get("key_law_codes", []) if x in valid_codes][:4]
+    else:
+        slugs, key_codes = llm.offline_classify(msgs, all_crimes), []
+
     sexual = {"rape", "sexual-harassment", "voyeurism", "sextortion"}
     if body.intake.is_minor and (sexual & set(slugs)) and "child-sexual-abuse" not in slugs:
         slugs.insert(0, "child-sexual-abuse")
-    is_emergency = cls.get("is_emergency") or body.intake.in_danger
-
     crimes = legal.crimes_by_slugs(s, slugs)
+
+    # Laws: the crime's laws, plus any key law the AI picked; key laws first and flagged.
     laws = legal.laws_for_crimes(s, crimes, body.intake.incident_date)
-    types = ["emergency"] if is_emergency else []
+    have = {l["code"] for l in laws}
+    laws += [l for l in library_laws if l["code"] in key_codes and l["code"] not in have]
+    if not key_codes and laws:  # offline: treat the first substantive law of the top crime as key
+        key_codes = [next((l["code"] for l in laws if l["cognizable"] is not None), laws[0]["code"])]
+    for l in laws:
+        l["key"] = l["code"] in key_codes
+    laws.sort(key=lambda l: (not l["key"], key_codes.index(l["code"]) if l["key"] else 0))
+
+    is_emergency = bool((ai or {}).get("is_emergency")) or body.intake.in_danger or bool(llm.EMERGENCY_RE.search(llm.transcript(msgs)))
+    recommended = (ai or {}).get("recommended_authority")
+    if recommended not in COMPLAINT_TYPES:
+        recommended = None
+    types = (["emergency"] if is_emergency else []) + ([RECOMMENDED_TO_TYPE[recommended]] if recommended else [])
     for c in crimes:
         types += [t for t in c.authority_types if t not in types]
     authorities = legal.authorities_for(s, types or ["emergency", "women_helpline", "police"], body.intake.district)
-    aid = legal.legal_aid_for(s, body.intake.district)
 
-    context = {
-        "is_emergency": is_emergency,
-        "intake": body.intake.model_dump(mode="json"),
-        "crimes": [{"name": c.name, "summary": c.summary} for c in crimes],
-        "laws": [{"citation": l["citation"], "title": l["title"], "plain": l["plain_en"]} for l in laws],
-        "authorities": [{"name": a.name, "phone": a.phone, "url": a.url} for a in authorities],
-        "missing_info": cls.get("missing_info", []),
-    }
-    ans = llm.answer(msgs, context, body.language)
+    if ai:
+        reply, steps, questions = ai["reply"], ai.get("next_steps", []), ai.get("follow_up_questions", [])
+    else:
+        off = llm.offline_reply(msgs, crimes, [l for l in laws if l["key"]], is_emergency, intake)
+        reply, steps, questions = off["reply"], off["next_steps"], off["follow_up_questions"]
 
     return {
-        "reply": ans["reply"],
-        "next_steps": ans.get("next_steps", []),
+        "reply": reply,
+        "next_steps": steps,
+        "follow_up_questions": questions,
+        "facts": (ai or {}).get("facts"),
+        "recommended_authority": recommended,
         "is_emergency": is_emergency,
-        "offline": cls.get("offline", False) or ans.get("offline", False),
+        "offline": ai is None,
+        "offline_reason": None if ai else llm.offline_reason(),
         "crimes": [{"slug": c.slug, "name": c.name, "category": c.category} for c in crimes],
         "laws": laws,
         "evidence": list(dict.fromkeys(e for c in crimes for e in c.evidence)),
         "documents": list(dict.fromkeys(d for c in crimes for d in c.documents)),
         "authorities": authorities,
-        "legal_aid": aid,
+        "legal_aid": legal.legal_aid_for(s, body.intake.district),
     }
+
+
+TYPE_ORDER = ["emergency", "women_helpline", "police", "pink_police", "cyber", "protection_officer",
+              "one_stop_centre", "posh_committee", "child_helpline", "legal_aid", "commission"]
+COMPLAINT_TYPES = {"police", "magistrate", "protection_officer", "posh_committee", "cyber"}
+RECOMMENDED_TO_TYPE = {"police": "police", "magistrate": "legal_aid", "protection_officer": "protection_officer",
+                       "posh_committee": "posh_committee", "cyber": "cyber"}
 
 
 # ---------- complaint ----------

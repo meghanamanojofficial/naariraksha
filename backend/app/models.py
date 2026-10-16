@@ -8,6 +8,7 @@ from sqlmodel import Field, SQLModel
 class CrimeLaw(SQLModel, table=True):
     crime_id: int = Field(foreign_key="crime.id", primary_key=True)
     law_id: int = Field(foreign_key="law.id", primary_key=True)
+    position: int = 0  # order as listed in crimes.json (most important first)
 
 
 class Law(SQLModel, table=True):
@@ -34,6 +35,8 @@ class Crime(SQLModel, table=True):
     evidence: list[str] = Field(default_factory=list, sa_column=Column(JSON))
     documents: list[str] = Field(default_factory=list, sa_column=Column(JSON))
     authority_types: list[str] = Field(default_factory=list, sa_column=Column(JSON))
+    first_steps: list[str] = Field(default_factory=list, sa_column=Column(JSON))
+    questions: list[str] = Field(default_factory=list, sa_column=Column(JSON))
 
 
 class Authority(SQLModel, table=True):
@@ -72,6 +75,6 @@ class CallbackRequest(SQLModel, table=True):
     phone: str
     district: str | None = None
     language: str | None = None
-    legal_aid_id: int | None = Field(default=None, foreign_key="legalaid.id")
+    legal_aid_id: int | None = None
     consent: bool
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
