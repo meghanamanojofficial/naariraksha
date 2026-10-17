@@ -5,6 +5,7 @@
 **Event:** She Builds Tech 3.0 (KSUM), 20-hour AI Hackathon, Oct 16–17, 2026, KSUM Kalamassery
 **Date of chat:** Oct 16–17, 2026
 **Follows:** `nariraksha_hackathon_chat_2.md`
+**Covers:** the frontend redesign, merging it into `main`, and deploying to Vercel and Render
 
 ---
 
@@ -170,24 +171,142 @@ Make sure `frontend/.env.local` exists (copy it from `.env.local.example`).
 
 ## 5. Request: convert this chat into an md file
 
-Created this file, `nariraksha_hackathon_chat_3.md`.
+Created `nariraksha_hackathon_chat_3.md` (an earlier version of this file).
+
+- A repo check flagged the new file as uncommitted. It was committed to `claude/gracious-feynman-82390j`.
+- PR #1 was already merged, so the branch was first restarted from the latest `main`.
+
+---
+
+## 6. Request: let's deploy this
+
+> Okay let's deploy this.
+
+### Response
+
+Claude can't log into Vercel or Render, so it prepared the repo and wrote out the steps. The plan follows the tech stack chosen in part 2: **Vercel** for the frontend and **Render** for the backend.
+
+**Added to the repo:**
+
+- `render.yaml`: a Render "Blueprint" that sets up the backend automatically:
+  - service `nariraksha-api`, free plan, `rootDir: backend`
+  - build: `pip install -r requirements.txt`
+  - start: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+  - health check at `/health`, Python 3.12.7
+  - `SECRET_KEY` generated automatically
+  - `GEMINI_API_KEY`, `CORS_ORIGINS` and `DATABASE_URL` filled in on the Render dashboard
+- A "Deploying" section in `README.md`.
+- `frontend/src/lib/api.ts`: the fallback backend address is now port **8001**, not 8000, so a missing `.env.local` no longer breaks local runs.
+
+Merged into `main` as [meghanamanojofficial/naariraksha#2](https://github.com/meghanamanojofficial/naariraksha/pull/2), together with this chat log.
+
+**Deployment steps**
+
+1. **Backend on Render**
+   - New → Blueprint → choose the `naariraksha` repo.
+   - Paste `GEMINI_API_KEY`. Leave `CORS_ORIGINS` and `DATABASE_URL` empty for now.
+   - Copy the service URL and check `<URL>/health`.
+2. **Frontend on Vercel**
+   - Add New → Project → import the repo.
+   - Set **Root Directory** to `frontend`.
+   - Add the environment variable `NEXT_PUBLIC_API_URL` = the Render URL, with no trailing `/`.
+   - Deploy.
+3. **Connect them**
+   - In Render, set `CORS_ORIGINS` to the Vercel URL, with no trailing `/`.
+
+**Things to know**
+
+- **The free backend sleeps.** Render's free plan sleeps after 15 minutes idle, and the first request then takes about a minute. Open the site a few minutes before the demo.
+- **Some data resets.** Without `DATABASE_URL`, the backend uses SQLite on Render's temporary disk. Legal content reloads on every start, but client registrations and callback requests are lost on restart. For persistence, use a Supabase `postgresql+psycopg://...` URL.
+- **Redeploy after changing the API URL.** `NEXT_PUBLIC_API_URL` is baked in when the site is built, so changing it needs a Vercel redeploy.
+
+---
+
+## 7. Problem: the Vercel build failed
+
+The build log stopped after `> next build` with a red error marker. The log had also flagged:
+
+```
+npm warn deprecated next@15.5.4: This version has a security vulnerability
+```
+
+### Response
+
+The likely cause: Vercel refuses to deploy Next.js versions with known security holes.
+
+- Upgraded to the patched releases in the same series:
+  - `next` 15.5.4 → **15.5.28**
+  - `react` / `react-dom` 19.1.0 → **19.1.10**
+  - `eslint-config-next` 15.5.4 → **15.5.28**
+- Versions stay pinned exactly, as before. No app code changed.
+- `tsc`, `eslint` and `next build` passed.
+- Merged into `main` as [meghanamanojofficial/naariraksha#3](https://github.com/meghanamanojofficial/naariraksha/pull/3).
+- Teammates: `git pull`, then `npm install` in `frontend/`.
+
+---
+
+## 8. Problem: the live site says "Backend not reachable"
+
+The Vercel build succeeded. **https://naariraksha.vercel.app** loads with the new design, but shows the yellow "Backend not reachable" banner.
+
+### Response
+
+The frontend is live, but it can't reach the Render backend. Claude's sandbox couldn't reach Vercel or Render to check, so here is the checklist:
+
+1. **Is the backend up?**
+   - Open `<Render URL>/health`. It should return `{"ok":true,...}`; the first load can take about a minute.
+   - If the Render deploy failed, check Render's **Logs**.
+2. **Does Vercel know the backend's address?** This is the most likely cause.
+   - Vercel → `naariraksha` → Settings → Environment Variables → `NEXT_PUBLIC_API_URL` = the Render URL (`https://...onrender.com`, no trailing `/`, no `/health`).
+   - Then **Redeploy**. Without this variable, the live site looks for `localhost:8001` on the visitor's own computer.
+3. **Does Render allow the Vercel site (CORS)?**
+   - Render → `nariraksha-api` → Environment → `CORS_ORIGINS` = `https://naariraksha.vercel.app`.
+   - Watch the spelling: the Vercel site is **naa**riraksha (two a's), the Render service is **na**riraksha (one a).
+
+**To tell which one it is:** press F12 → Console → refresh.
+- `localhost:8001` in the error → step 2.
+- "blocked by CORS policy" → step 3.
+
+---
+
+## 9. Request: turn this whole chat into an md file
+
+Updated this file with sections 5–9.
 
 ---
 
 ## Files added or changed in this part
 
-**New**
+**Redesign (PR #1)**
 
-- `frontend/public/lady-justice.png`
-- `frontend/src/components/SiteHeader.tsx`
-- `frontend/src/components/SafetyCard.tsx`
-- `frontend/src/lib/language.tsx`
+- **New:**
+  - `frontend/public/lady-justice.png`
+  - `frontend/src/components/SiteHeader.tsx`
+  - `frontend/src/components/SafetyCard.tsx`
+  - `frontend/src/lib/language.tsx`
+- **Changed:**
+  - `frontend/package.json` and `package-lock.json`: added `lucide-react`
+  - `globals.css` and `layout.tsx`
+  - every page under `frontend/src/app/`
+  - `ui.tsx`, `QuickExit.tsx`, `VoiceInput.tsx`, `SpeakButton.tsx` and `ProductPicker.tsx`
 
-**Changed**
+**Deployment (PR #2)**
 
-- `frontend/package.json` and `package-lock.json`: added `lucide-react`
-- `frontend/src/app/globals.css` and `layout.tsx`
-- Every page under `frontend/src/app/`
-- `frontend/src/components/ui.tsx`, `QuickExit.tsx`, `VoiceInput.tsx`, `SpeakButton.tsx` and `ProductPicker.tsx`
+- `render.yaml` (new)
+- `README.md`: Deploying section
+- `frontend/src/lib/api.ts`: fallback port changed to 8001
+- `nariraksha_hackathon_chat_3.md`
 
-**Unchanged:** the whole backend, `lib/api.ts`, `lib/clients.ts` and `lib/products.ts`.
+**Security upgrade (PR #3)**
+
+- `frontend/package.json` and `package-lock.json`: Next.js 15.5.28, React 19.1.10
+
+**Unchanged throughout:** the backend application code, `lib/clients.ts` and `lib/products.ts`.
+
+## Pull requests
+
+| PR | What | Status |
+|---|---|---|
+| [#1](https://github.com/meghanamanojofficial/naariraksha/pull/1) | Sanctuary Glass redesign | Merged |
+| [#2](https://github.com/meghanamanojofficial/naariraksha/pull/2) | Deployment setup + chat log part 3 | Merged |
+| [#3](https://github.com/meghanamanojofficial/naariraksha/pull/3) | Next.js / React security upgrade | Merged |
