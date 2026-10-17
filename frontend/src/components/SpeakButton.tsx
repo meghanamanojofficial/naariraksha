@@ -29,7 +29,7 @@ export default function SpeakButton({ text, language }: { text: string; language
   };
 
   return (
-    <button type="button" onClick={toggle} className="mt-1 text-xs text-rose-700 underline" aria-label={speaking ? "Stop reading" : "Read this aloud"}>
+    <button type="button" onClick={toggle} className="mt-2 inline-flex items-center gap-1 rounded-full bg-white/70 px-2.5 py-1 text-xs font-medium text-primary-container hover:bg-white" aria-label={speaking ? "Stop reading" : "Read this aloud"}>
       {speaking ? "■ Stop" : "🔊 Read aloud"}
     </button>
   );

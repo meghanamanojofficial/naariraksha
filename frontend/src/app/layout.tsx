@@ -1,39 +1,53 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { DM_Sans, Noto_Sans_Malayalam } from "next/font/google";
+import { Asterisk, Gavel } from "lucide-react";
 import "./globals.css";
-import QuickExit from "@/components/QuickExit";
+import SiteHeader from "@/components/SiteHeader";
+import { LanguageProvider } from "@/lib/language";
+
+const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-dm-sans", display: "swap" });
+const notoMl = Noto_Sans_Malayalam({ subsets: ["malayalam"], weight: ["400", "500", "600", "700"], variable: "--font-noto-ml", display: "swap" });
 
 export const metadata: Metadata = {
   title: "NariRaksha",
   description: "Your safety. Your rights. Your voice.",
 };
 
-const NAV = [
-  { href: "/help", label: "Get help" },
-  { href: "/crimes", label: "Know your rights" },
-  { href: "/complaint", label: "Draft complaint" },
-  { href: "/directory", label: "Helplines" },
-  { href: "/legal-aid", label: "Legal aid" },
-  { href: "/products", label: "Products" },
-  { href: "/clients", label: "Clients" },
-];
-
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body className="min-h-screen bg-rose-50/40 text-slate-800 antialiased">
-        <header className="sticky top-0 z-40 border-b border-rose-100 bg-white/95 backdrop-blur">
-          <nav className="mx-auto flex max-w-5xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3 text-sm">
-            <Link href="/" className="text-lg font-bold text-rose-700">NariRaksha</Link>
-            {NAV.map((n) => <Link key={n.href} href={n.href} className="hover:text-rose-700">{n.label}</Link>)}
-            <span className="ml-auto" />
-            <QuickExit />
-          </nav>
-        </header>
-        <main className="mx-auto max-w-5xl px-4 py-8">{children}</main>
-        <footer className="mx-auto max-w-5xl px-4 pb-8 text-xs text-slate-500">
-          NariRaksha gives general legal information, not legal advice. In danger? Call <b>112</b>. Women can get a free lawyer: <b>15100</b>.
-        </footer>
+    <html lang="en" className={`${dmSans.variable} ${notoMl.variable}`}>
+      <body className="min-h-screen font-sans text-ink antialiased">
+        <LanguageProvider>
+          <SiteHeader />
+          <main className="mx-auto max-w-6xl px-4 py-8">{children}</main>
+          <footer className="mt-8 bg-surface-container-low/70">
+            <div className="mx-auto max-w-6xl space-y-6 px-4 py-8">
+              <div className="glass flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
+                <a href="tel:112" className="flex items-center gap-4">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-fixed text-primary"><Asterisk size={24} /></span>
+                  <span>
+                    <span className="eyebrow text-secondary">Emergency</span>
+                    <span className="block text-2xl font-bold text-primary-container">Dial 112</span>
+                  </span>
+                </a>
+                <a href="tel:15100" className="flex items-center gap-4">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-fixed text-primary"><Gavel size={22} /></span>
+                  <span>
+                    <span className="eyebrow text-secondary">Free lawyer for every woman (NALSA)</span>
+                    <span className="block text-2xl font-bold text-primary-container">15100</span>
+                  </span>
+                </a>
+              </div>
+              <div className="flex flex-col justify-between gap-3 text-xs text-ink-muted sm:flex-row">
+                <p className="max-w-2xl">
+                  NariRaksha gives general legal information, not legal advice. Every law shown comes from our checked legal library, not from the AI.
+                  Need to leave fast? Tap <b>Quick exit</b> or press <b>Esc</b> twice.
+                </p>
+                <p>Free for every woman. Nothing you type is stored.</p>
+              </div>
+            </div>
+          </footer>
+        </LanguageProvider>
       </body>
     </html>
   );

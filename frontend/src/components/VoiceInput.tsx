@@ -163,16 +163,16 @@ export default function VoiceInput({ language, onText, onInterim, disabled }: Pr
     state === "transcribing" ? "Transcribing…" : `Speak (${language})`;
 
   return (
-    <div className="flex flex-col items-stretch">
+    <div className="flex items-center gap-2">
       <button type="button" onClick={toggle} disabled={disabled || state === "transcribing"}
         aria-pressed={active} aria-label={active ? "Stop voice input" : `Start voice input in ${language}`}
-        title={active ? "Stop" : "Speak instead of typing"}
-        className={`flex h-full min-h-[3rem] items-center justify-center gap-2 rounded-xl border px-3 text-sm font-medium transition disabled:opacity-50
-          ${active ? "border-rose-700 bg-rose-700 text-white" : "border-rose-200 bg-white text-rose-800 hover:bg-rose-50"}`}>
+        title={active ? "Stop" : `Speak instead of typing (${language})`}
+        className={`flex h-10 items-center justify-center gap-2 rounded-full px-3 text-sm font-medium transition disabled:opacity-50
+          ${active ? "bg-primary-container text-white" : "bg-white text-primary-container hover:bg-rose-50"}`}>
         {active ? <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-white" /> : <MicIcon />}
-        <span className="hidden sm:inline">{label}</span>
+        <span className={active || state === "transcribing" ? "" : "sr-only"}>{label}</span>
       </button>
-      {error && <p role="alert" className="mt-1 max-w-xs text-xs text-red-600">{error}</p>}
+      {error && <p role="alert" className="max-w-xs text-xs text-red-600">{error}</p>}
     </div>
   );
 }
