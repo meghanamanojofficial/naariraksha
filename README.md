@@ -70,3 +70,19 @@ git add . && git commit -m "message"
 git push -u origin feat/<name>     # open a Pull Request into main
 ```
 Never commit `.env` or `.env.local`.
+
+## Deploying
+
+Backend on **Render**, frontend on **Vercel**. Both are free.
+
+1. **Backend (Render):** Dashboard → **New → Blueprint** → choose this repo. `render.yaml` sets everything up.
+   Fill in `GEMINI_API_KEY`. Leave `CORS_ORIGINS` for now. Deploy, then copy the URL (e.g. `https://nariraksha-api.onrender.com`).
+   Check `<that URL>/health`.
+2. **Frontend (Vercel):** **Add New → Project** → import this repo → set **Root Directory** to `frontend`.
+   Add the environment variable `NEXT_PUBLIC_API_URL` = the Render URL (no trailing slash). Deploy.
+3. **Connect them:** in Render, set `CORS_ORIGINS` to your Vercel URL (e.g. `https://nariraksha.vercel.app`, no trailing slash). Save; Render restarts.
+
+Notes:
+* The Render free plan sleeps after 15 minutes idle; the first request then takes about a minute. Open the site a few minutes before a demo.
+* Without `DATABASE_URL`, the backend uses SQLite on Render's temporary disk. Legal content reloads on every start, but client registrations and callback requests are lost on restart. For persistence, set `DATABASE_URL` to a Supabase URL in the form `postgresql+psycopg://...`.
+* Changing `NEXT_PUBLIC_API_URL` needs a Vercel redeploy, because it is built into the frontend.

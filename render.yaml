@@ -1,0 +1,24 @@
+# Render Blueprint for the NariRaksha backend (FastAPI).
+# Render dashboard → New → Blueprint → pick this repo. The frontend is deployed on Vercel.
+services:
+  - type: web
+    name: nariraksha-api
+    runtime: python
+    rootDir: backend
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: GEMINI_API_KEY
+        sync: false          # paste your key in the Render dashboard
+      - key: GEMINI_MODEL
+        value: gemini-2.5-flash
+      - key: CORS_ORIGINS
+        sync: false          # your Vercel URL, e.g. https://nariraksha.vercel.app
+      - key: SECRET_KEY
+        generateValue: true  # signs client login tokens
+      - key: DATABASE_URL
+        sync: false          # optional: Supabase URL; leave empty for SQLite (resets on restart)
