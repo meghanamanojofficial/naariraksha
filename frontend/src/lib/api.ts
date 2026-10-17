@@ -1,4 +1,4 @@
-export const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+export const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8001";
 
 export type Law = {
   code: string; act: string; section: string; old_act: string | null; old_section: string | null;
