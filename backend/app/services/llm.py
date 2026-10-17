@@ -13,7 +13,7 @@ import os
 import re
 from datetime import date
 
-MODEL = os.getenv("GEMINI_MODEL") or "gemini-2.5-flash"
+MODEL = os.getenv("GEMINI_MODEL") or "gemini-3.8-flash"
 LAST_ERROR: str | None = None  # shown on /health and in chat responses to debug the AI connection
 
 EMERGENCY_RE = re.compile(r"\b(kill|right now|outside my (door|house|room)|attacking|bleeding|help me now|suicid|end my life)", re.I)
